@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Computer Vision Quest Log</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #000000;
+      color: #ffffff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      padding: 2rem 1.5rem;
+      max-width: 720px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .header-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2.5rem;
+      border-bottom: 1px solid #1a1a1a;
+      padding-bottom: 1.5rem;
+    }
+
+    .back-home {
+      color: #888888;
+      text-decoration: none;
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      transition: color 0.2s ease;
+    }
+
+    .back-home:hover {
+      color: #ffffff;
+    }
+
+    .page-title {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 2rem;
+    }
+
+    section {
+      margin-bottom: 0;
+    }
+
+    .section-title {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #1a1a1a;
+    }
+
+    .section-title:first-of-type {
+      margin-top: 10;
+      padding-top: 0;
+      border-top: none;
+      font-size: large
+    }
+
+    .section-title.ongoing { color: #ffd700; }
+    .section-title.upcoming { color: #ff9999; }
+    .section-title.done { color: lightgreen; }
+
+    .task-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .task-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+      background-color: transparent;
+      border: none;
+      border-bottom: 1px solid #1a1a1a;
+      font-size: 0.95rem;
+      position: relative;
+    }
+
+    .task-item:last-child {
+      border-bottom: none;
+    }
+
+    .task-content {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      flex: 1;
+    }
+
+    .sub-text {
+      color: #666666;
+      font-size: 0.8rem;
+    }
+
+    .status-badge {
+      font-size: 0.7rem;
+      padding: 0;
+      border-radius: 0;
+      font-weight: 500;
+      white-space: nowrap;
+      background-color: transparent;
+      border: none;
+    }
+
+    .badge-ongoing {
+      color: #ffd700;
+    }
+
+    .badge-completed {
+      color: #e8d5c4;
+    }
+
+    .done-item {
+      background-color: transparent;
+      border: none;
+      border-bottom: 1px solid #1a1a1a;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      padding: 1rem 0;
+    }
+
+    .done-item:last-child {
+      border-bottom: none;
+    }
+
+    .done-item:hover {
+      background-color: transparent;
+    }
+
+    .hover-buttons {
+      display: none;
+      position: absolute;
+      gap: 0.5rem;
+      top: -18px;
+      right: 0;
+      z-index: 20;
+    }
+
+    .done-item:hover .hover-buttons {
+      display: flex;
+    }
+
+    .hover-indicator {
+      font-size: 0.65rem;
+      color: #666666;
+      transition: opacity 0.2s ease;
+    }
+
+    .done-item:hover .hover-indicator {
+      opacity: 0;
+    }
+
+    .action-btn {
+      color: #000000;
+      background-color: #e8d5c4;
+      text-decoration: none;
+      font-size: 0.65rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 0;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      transition: all 0.2s ease;
+      border: none;
+    }
+
+    .action-btn:hover {
+      background-color: #ffffff;
+    }
+
+    .action-btn.ctu {
+      background-color: #ff9999;
+      color: #000000;
+    }
+
+    .action-btn.ctu:hover {
+      background-color: #ffb3b3;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.6rem;
+      color: #555555;
+      margin-top: 3rem;
+      letter-spacing: 0.1em;
+      border-top: 1px solid #1a1a1a;
+      padding-top: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <header class="header-nav">
+    <a href="index.html" class="back-home">&lt; HOME</a>
+  </header>
+
+  <!-- Main Container -->
+  <main>
+    <h1 class="page-title">news</h1>
+
+    <section>
+      <h2 class="section-title ongoing">
+        <i class="nes-icon star is-small"></i> on-going
+      </h2>
+      
+      <div class="task-list">
+        
+        <div class="task-item">
+          <div class="task-content">
+            <span>SAM3 for human instance segmentation</span>
+          </div>
+          <span class="status-badge badge-ongoing">[in progress]</span>
+        </div>
+
+        <div class="task-item">
+          <div class="task-content">
+            <span>computer vision research intern</span>
+            <span class="sub-text">CTU FEE VRG</span>
+          </div>
+          <span class="status-badge badge-ongoing">[2/3 years complete]</span>
+        </div>
+
+        <div class="task-item">
+          <div class="task-content">
+            <span>bachelors in computer science</span>
+            <span class="sub-text">CTU FEE</span>
+          </div>
+          <span class="status-badge badge-ongoing">[2/3 years complete]</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CATEGORY 2: UPCOMING QUESTS -->
+    <section>
+      <h2 class="section-title upcoming">
+        <i class="nes-icon coin is-small"></i> > UPCOMING QUESTS
+      </h2>
+      
+      <div class="task-list">
+
+        <div class="task-item">
+          <div class="task-content">
+            <span style="color: #aaaaaa;">Deploy PyTorch Web Demo</span>
+          </div>
+        </div>
+
+        <div class="task-item">
+          <div class="task-content">
+            <span style="color: #aaaaaa;">Write Data Analysis Article</span>
+          </div>
+        </div>
+
+        <div class="task-item">
+          <div class="task-content">
+            <span style="color: #aaaaaa;">Set up Custom Domain DNS</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CATEGORY 3: ACHIEVEMENTS (DONE) -->
+    <section>
+      <h2 class="section-title done">
+        <i class="nes-icon trophy is-small"></i> > DONE
+      </h2>
+      
+      <div class="task-list">
+
+        <!-- ITEM 1: 2 HOVER BUTTONS -->
+        <div class="task-item done-item">
+          
+          <div class="hover-buttons">
+            <a href="https://fel.cvut.cz/en/what-s-on/news/84000-a-student-of-the-faculty-of-electrical-engineering-at-ctu-succeeded-at-the-international-workshop-cvww-2026-for-his-work-in-the-field-of-computer-vision-he-received-the-best-paper-award" target="_blank" class="action-btn ctu">
+              [CTU News]
+            </a>
+            <a href="https://arxiv.org/abs/2601.08982" target="_blank" class="action-btn">
+              [arXiv]
+            </a>
+          </div>
+
+          <div class="task-content">
+              <span>SAM-pose2seg paper</span>
+              <span class="sub-text">First author</span>
+              <span class="hover-indicator">💬 HOVER</span>
+          </div>
+          <span class="status-badge badge-completed">[Presented on CVWW 2026]</span>
+        </div>
+
+        <!-- ITEM 2: 1 HOVER BUTTON -->
+        <div class="task-item done-item">
+          
+          <div class="hover-buttons">
+            <a href="https://arxiv.org/abs/2601.08982" target="_blank" class="action-btn">
+              [arXiv]
+            </a>
+          </div>
+
+          <div class="task-content">
+              <span>BBoxMaskPose v2 paper</span>
+              <span class="sub-text">Co-author</span>
+              <span class="hover-indicator">💬 HOVER</span>
+          </div>
+          <span class="status-badge badge-completed">[Submitted to IJCV 2026]</span>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>PRESS START TO CONTINUE • 2026</p>
+  </footer>
+
+</body>
+</html>

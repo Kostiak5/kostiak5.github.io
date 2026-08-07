@@ -22,6 +22,7 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       text-align: center;
       padding: 0 20px;
+      text-transform: lowercase;
     }
 
     .name {
@@ -60,7 +61,209 @@
     }
 
     .subpages {
-      margin-top: 3rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+      margin-top: 2rem;
+      position: relative;
+      width: 100%;
+    }
+
+    .subpages .label {
+      color: #888888;
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .subpage-link {
+      text-decoration: none;
+      font-size: 1.1rem;
+      transition: opacity 0.2s ease;
+      cursor: pointer;
+      border: none;
+      background: none;
+      font-family: inherit;
+      color: inherit;
+      position: relative;
+    }
+
+    .subpage-link:hover {
+      opacity: 0.7;
+    }
+
+    /* Dropdown Styles */
+    .quest-dropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #000000;
+      border: 1px solid #1a1a1a;
+      border-radius: 0;
+      width: 90vw;
+      max-width: 700px;
+      max-height: 70vh;
+      overflow-y: auto;
+      padding: 2rem;
+      z-index: 100;
+      margin-top: 1rem;
+      text-align: left;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    .quest-dropdown.active {
+      display: block;
+    }
+
+    .dropdown-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid #1a1a1a;
+      padding-bottom: 1.5rem;
+    }
+
+    .quest-section {
+      margin-bottom: 0;
+    }
+
+    .quest-section-title {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #1a1a1a;
+    }
+
+    .quest-section-title:first-of-type {
+      margin-top: 0;
+      padding-top: 0;
+      border-top: none;
+    }
+
+    .quest-section-title.ongoing { color: #ffd700; }
+    .quest-section-title.upcoming { color: #ff9999; }
+    .quest-section-title.done { color: #e8d5c4; }
+
+    .quest-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .quest-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+      background-color: transparent;
+      border: none;
+      border-bottom: 1px solid #1a1a1a;
+      font-size: 0.95rem;
+      position: relative;
+    }
+
+    .quest-item:last-child {
+      border-bottom: none;
+    }
+
+    .quest-content {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      flex: 1;
+    }
+
+    .quest-sub-text {
+      color: #666666;
+      font-size: 0.8rem;
+    }
+
+    .quest-badge {
+      font-size: 0.7rem;
+      padding: 0;
+      border-radius: 0;
+      font-weight: 500;
+      white-space: nowrap;
+      background-color: transparent;
+      border: none;
+    }
+
+    .quest-badge.ongoing {
+      color: #ffd700;
+    }
+
+    .quest-badge.completed {
+      color: #e8d5c4;
+    }
+
+    .quest-done-item {
+      background-color: transparent;
+      border: none;
+      border-bottom: 1px solid #1a1a1a;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      padding: 1rem 0;
+    }
+
+    .quest-done-item:last-child {
+      border-bottom: none;
+    }
+
+    .quest-hover-buttons {
+      display: none;
+      position: absolute;
+      gap: 0.5rem;
+      top: -18px;
+      right: 0;
+      z-index: 20;
+    }
+
+    .quest-done-item:hover .quest-hover-buttons {
+      display: flex;
+    }
+
+    .quest-hover-indicator {
+      font-size: 0.65rem;
+      color: #666666;
+      transition: opacity 0.2s ease;
+    }
+
+    .quest-done-item:hover .quest-hover-indicator {
+      opacity: 0;
+    }
+
+    .quest-action-btn {
+      color: #000000;
+      background-color: #e8d5c4;
+      text-decoration: none;
+      font-size: 0.65rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 0;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      transition: all 0.2s ease;
+      border: none;
+      display: inline-block;
+    }
+
+    .quest-action-btn:hover {
+      background-color: #ffffff;
+    }
+
+    .quest-action-btn.ctu {
+      background-color: #ff9999;
+      color: #000000;
+    }
+
+    .quest-action-btn.ctu:hover {
+      background-color: #ffb3b3;
     }
   </style>
 </head>
@@ -68,17 +271,273 @@
 
   <h1 class="name">constantin kolomiiets</h1>
   <div class="subpages">
-    <a style="color:lightcoral">computer vision papers & research</a>
-    <a style="color: bisque;">AI/data analysis projects</a>
-    <a style="color: bisque;">webdev projects</a>
-    <a style="color: bisque;">computer vision research</a>
+    <button class="subpage-link" data-category="compvis" style="color: lightcoral;">computer vision papers & research</button>
+    <div id="dropdown-compvis" class="quest-dropdown">
+      <h2 class="dropdown-title">computer vision</h2>
+      <div id="dropdown-compvis-content"></div>
+    </div>
 
+    <button class="subpage-link" data-category="aidata" style="color: lightskyblue;">AI / data analysis projects</button>
+    <div id="dropdown-aidata" class="quest-dropdown">
+      <h2 class="dropdown-title">ai / data analysis</h2>
+      <div id="dropdown-aidata-content"></div>
+    </div>
+
+    <button class="subpage-link" data-category="webdev" style="color: lightgreen;">webdev projects</button>
+    <div id="dropdown-webdev" class="quest-dropdown">
+      <h2 class="dropdown-title">webdev projects</h2>
+      <div id="dropdown-webdev-content"></div>
+    </div>
+
+    <button class="subpage-link" data-category="other" style="color: bisque;">other projects</button>
+    <div id="dropdown-other" class="quest-dropdown">
+      <h2 class="dropdown-title">other projects</h2>
+      <div id="dropdown-other-content"></div>
+    </div>
   </div>
   <div class="links">
     <a href="https://github.com/Kostiak5" target="_blank">github</a>
     <a href="www.linkedin.com/in/constantin-kolomiiets-44b2aa216" target="_blank">linkedin</a>
     <a href="mailto:conskol5@gmail.com">gmail</a>
   </div>
+
+  <script>
+    let activeDropdown = null;
+
+    // Set up event listeners for subpage links
+    document.addEventListener('DOMContentLoaded', () => {
+      const subpageLinks = document.querySelectorAll('.subpage-link');
+      subpageLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const category = link.getAttribute('data-category');
+          toggleDropdown(category);
+        });
+      });
+    });
+
+    const questData = {
+      compvis: {
+        sections: [
+          {
+            title: '> on-going',
+            type: 'ongoing',
+            items: [
+              { name: 'Computer Vision Model Optimization', badge: '[75% complete]' },
+              { name: 'Portfolio Site Redesign', badge: '[in progress]' },
+              { name: 'Bachelors in Computer Science', subtext: 'CTU FEE', badge: '[2/3 complete]' }
+            ]
+          },
+          {
+            title: '> upcoming quests',
+            type: 'upcoming',
+            items: [
+              { name: 'Deploy PyTorch Web Demo' },
+              { name: 'Write Data Analysis Article' },
+              { name: 'Set up Custom Domain DNS' }
+            ]
+          },
+          {
+            title: '> done',
+            type: 'done',
+            items: [
+              {
+                name: 'SAM-pose2seg paper',
+                subtext: 'First author',
+                badge: '[presented on cvww 2026]',
+                buttons: [
+                  { text: '[ctu news]', url: 'https://fel.cvut.cz/en/what-s-on/news/84000-a-student-of-the-faculty-of-electrical-engineering-at-ctu-succeeded-at-the-international-workshop-cvww-2026-for-his-work-in-the-field-of-computer-vision-he-received-the-best-paper-award', isCtu: true },
+                  { text: '[arxiv]', url: 'https://arxiv.org/abs/2601.08982', isCtu: false }
+                ]
+              },
+              {
+                name: 'BBoxMaskPose v2 paper',
+                subtext: 'Co-author',
+                badge: '[submitted to ijcv 2026]',
+                buttons: [
+                  { text: '[arxiv]', url: 'https://arxiv.org/abs/2601.08982', isCtu: false }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      aidata: {
+        sections: [
+          {
+            title: '> on-going',
+            type: 'ongoing',
+            items: [
+              { name: 'Machine Learning Model Development', badge: '[60% complete]' },
+              { name: 'Data Pipeline Optimization', badge: '[in progress]' }
+            ]
+          },
+          {
+            title: '> upcoming quests',
+            type: 'upcoming',
+            items: [
+              { name: 'Publish Analysis Article' },
+              { name: 'Build Real-time Dashboard' }
+            ]
+          },
+          {
+            title: '> done',
+            type: 'done',
+            items: [
+              {
+                name: 'Time Series Forecasting Project',
+                badge: '[completed]',
+                buttons: [
+                  { text: '[github]', url: 'https://github.com/Kostiak5', isCtu: false }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      webdev: {
+        sections: [
+          {
+            title: '> on-going',
+            type: 'ongoing',
+            items: [
+              { name: 'Portfolio Site Redesign', badge: '[in progress]' },
+              { name: 'Web App Development', badge: '[40% complete]' }
+            ]
+          },
+          {
+            title: '> upcoming quests',
+            type: 'upcoming',
+            items: [
+              { name: 'Deploy to Production' },
+              { name: 'Add Mobile Responsiveness' }
+            ]
+          },
+          {
+            title: '> done',
+            type: 'done',
+            items: [
+              {
+                name: 'Personal Website Launch',
+                badge: '[launched]',
+                buttons: [
+                  { text: '[github]', url: 'https://github.com/Kostiak5', isCtu: false }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      other: {
+        sections: [
+          {
+            title: '> on-going',
+            type: 'ongoing',
+            items: [
+              { name: 'Open Source Contributions', badge: '[active]' },
+              { name: 'Learning New Technologies', badge: '[ongoing]' }
+            ]
+          },
+          {
+            title: '> upcoming quests',
+            type: 'upcoming',
+            items: [
+              { name: 'Start Blog Series' },
+              { name: 'Create Tutorial Videos' }
+            ]
+          },
+          {
+            title: '> done',
+            type: 'done',
+            items: [
+              {
+                name: 'CTF Competition Participation',
+                badge: '[completed]',
+                buttons: [
+                  { text: '[details]', url: '#', isCtu: false }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    };
+
+    function renderQuestContent(category) {
+      const data = questData[category];
+      let html = '';
+
+      data.sections.forEach((section) => {
+        html += `<div class="quest-section">`;
+        html += `<h3 class="quest-section-title ${section.type}">${section.title}</h3>`;
+        html += `<div class="quest-list">`;
+
+        section.items.forEach((item) => {
+          const isDone = section.type === 'done';
+          let buttonsHTML = '';
+
+          if (item.buttons && item.buttons.length > 0) {
+            buttonsHTML = '<div class="quest-hover-buttons">';
+            item.buttons.forEach(btn => {
+              const btnClass = btn.isCtu ? 'quest-action-btn ctu' : 'quest-action-btn';
+              buttonsHTML += `<a href="${btn.url}" target="_blank" class="${btnClass}">${btn.text}</a>`;
+            });
+            buttonsHTML += '</div>';
+          }
+
+          html += `<div class="quest-item ${isDone ? 'quest-done-item' : ''}">`;
+          html += buttonsHTML;
+          html += `<div class="quest-content">`;
+          html += `<span>${item.name}</span>`;
+          if (item.subtext) html += `<span class="quest-sub-text">${item.subtext}</span>`;
+          if (item.buttons) html += `<span class="quest-hover-indicator">💬 hover</span>`;
+          html += `</div>`;
+          if (item.badge) html += `<span class="quest-badge ${isDone ? 'completed' : 'ongoing'}">${item.badge}</span>`;
+          html += `</div>`;
+        });
+
+        html += `</div></div>`;
+      });
+
+      return html;
+    }
+
+    function toggleDropdown(category) {
+      const dropdown = document.getElementById(`dropdown-${category}`);
+      const content = document.getElementById(`dropdown-${category}-content`);
+
+      // Close other dropdowns
+      if (activeDropdown && activeDropdown !== dropdown) {
+        activeDropdown.classList.remove('active');
+      }
+
+      // Toggle current dropdown
+      if (dropdown.classList.contains('active')) {
+        dropdown.classList.remove('active');
+        activeDropdown = null;
+      } else {
+        if (!content.innerHTML) {
+          content.innerHTML = renderQuestContent(category);
+        }
+        dropdown.classList.add('active');
+        activeDropdown = dropdown;
+      }
+    }
+
+    document.addEventListener('click', (e) => {
+      if (activeDropdown && !e.target.closest('.quest-dropdown') && !e.target.closest('.subpage-link')) {
+        activeDropdown.classList.remove('active');
+        activeDropdown = null;
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && activeDropdown) {
+        activeDropdown.classList.remove('active');
+        activeDropdown = null;
+      }
+    });
+  </script>
 
 </body>
 </html>  
