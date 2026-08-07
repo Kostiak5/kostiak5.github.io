@@ -106,6 +106,9 @@
     .quest-dropdown {
       display: none;
       position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       background-color: #000000;
       border: 1px solid #1a1a1a;
       border-radius: 0;
@@ -532,11 +535,6 @@
         if (!content.innerHTML) {
           content.innerHTML = renderQuestContent(category);
         }
-
-        // Position dropdown under the button
-        const rect = button.getBoundingClientRect();
-        dropdown.style.top = (rect.bottom + window.scrollY + 10) + 'px';
-        dropdown.style.left = (rect.left + window.scrollX) + 'px';
 
         dropdown.classList.add('active');
         button.classList.add('active');
