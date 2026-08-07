@@ -275,6 +275,59 @@
     .quest-action-btn.ctu:hover {
       background-color: #ffb3b3;
     }
+
+    /* Go Back Button Styles */
+    .go-back {
+      display: none;
+      position: fixed;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #555555;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      z-index: 99;
+      transition: all 0.2s ease;
+      user-select: none;
+      white-space: nowrap;
+    }
+
+    .go-back.go-back-top {
+      top: 5%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .go-back.go-back-bottom {
+      bottom: 5%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .go-back.active {
+      display: block;
+    }
+
+    .go-back:hover {
+      color: #ffffff;
+      background-color: #555555;
+      padding: 0.5rem 1rem;
+    }
+
+    .go-back:hover::before {
+      content: '↑ ';
+      margin-right: 0.5rem;
+    }
+
+    .go-back.go-back-bottom:hover::before {
+      content: '';
+      margin-right: 0;
+    }
+
+    .go-back.go-back-bottom:hover::after {
+      content: ' ↓';
+      margin-left: 0.5rem;
+    }
   </style>
 </head>
 <body>
@@ -311,6 +364,10 @@
     <a href="mailto:conskol5@gmail.com">gmail</a>
   </div>
 
+  <!-- Go Back Buttons -->
+  <div class="go-back go-back-top" id="goBackTop">go back</div>
+  <div class="go-back go-back-bottom" id="goBackBottom">go back</div>
+
   <script>
     let activeDropdown = null;
     let activeButton = null;
@@ -325,6 +382,13 @@
           toggleDropdown(category, link);
         });
       });
+
+      // Set up go back button listeners
+      const goBackTop = document.getElementById('goBackTop');
+      const goBackBottom = document.getElementById('goBackBottom');
+
+      goBackTop.addEventListener('click', closeActiveDropdown);
+      goBackBottom.addEventListener('click', closeActiveDropdown);
     });
 
     const questData = {
@@ -516,6 +580,8 @@
     function toggleDropdown(category, button) {
       const dropdown = document.getElementById(`dropdown-${category}`);
       const content = document.getElementById(`dropdown-${category}-content`);
+      const goBackTop = document.getElementById('goBackTop');
+      const goBackBottom = document.getElementById('goBackBottom');
 
       // Close other dropdowns
       if (activeDropdown && activeDropdown !== dropdown) {
@@ -523,12 +589,16 @@
         if (activeButton) {
           activeButton.classList.remove('active');
         }
+        goBackTop.classList.remove('active');
+        goBackBottom.classList.remove('active');
       }
 
       // Toggle current dropdown
       if (dropdown.classList.contains('active')) {
         dropdown.classList.remove('active');
         button.classList.remove('active');
+        goBackTop.classList.remove('active');
+        goBackBottom.classList.remove('active');
         activeDropdown = null;
         activeButton = null;
       } else {
@@ -538,30 +608,37 @@
 
         dropdown.classList.add('active');
         button.classList.add('active');
+        goBackTop.classList.add('active');
+        goBackBottom.classList.add('active');
         activeDropdown = dropdown;
         activeButton = button;
       }
     }
 
-    document.addEventListener('click', (e) => {
-      if (activeDropdown && !e.target.closest('.quest-dropdown') && !e.target.closest('.subpage-link')) {
+    function closeActiveDropdown() {
+      if (activeDropdown) {
         activeDropdown.classList.remove('active');
         if (activeButton) {
           activeButton.classList.remove('active');
         }
+        const goBackTop = document.getElementById('goBackTop');
+        const goBackBottom = document.getElementById('goBackBottom');
+        goBackTop.classList.remove('active');
+        goBackBottom.classList.remove('active');
         activeDropdown = null;
         activeButton = null;
+      }
+    }
+
+    document.addEventListener('click', (e) => {
+      if (activeDropdown && !e.target.closest('.quest-dropdown') && !e.target.closest('.subpage-link') && !e.target.closest('.go-back')) {
+        closeActiveDropdown();
       }
     });
 
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && activeDropdown) {
-        activeDropdown.classList.remove('active');
-        if (activeButton) {
-          activeButton.classList.remove('active');
-        }
-        activeDropdown = null;
-        activeButton = null;
+        closeActiveDropdown();
       }
     });
   </script>
