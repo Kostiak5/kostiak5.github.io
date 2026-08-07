@@ -86,19 +86,26 @@
       font-family: inherit;
       color: inherit;
       position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
     }
 
     .subpage-link:hover {
       opacity: 0.7;
     }
 
+    .subpage-link.active::after {
+      content: 'hide';
+      font-size: 0.7rem;
+      color: #666666;
+      letter-spacing: 0.05em;
+    }
+
     /* Dropdown Styles */
     .quest-dropdown {
       display: none;
-      position: absolute;
-      top: 100%;
-      left: 50%;
-      transform: translateX(-50%);
+      position: fixed;
       background-color: #000000;
       border: 1px solid #1a1a1a;
       border-radius: 0;
@@ -108,7 +115,6 @@
       overflow-y: auto;
       padding: 2rem;
       z-index: 100;
-      margin-top: 1rem;
       text-align: left;
       box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
     }
@@ -141,9 +147,10 @@
     }
 
     .quest-section-title:first-of-type {
-      margin-top: 0;
+      margin-top: 10;
       padding-top: 0;
       border-top: none;
+      font-size: large;
     }
 
     .quest-section-title.ongoing { color: #ffd700; }
@@ -303,6 +310,7 @@
 
   <script>
     let activeDropdown = null;
+    let activeButton = null;
 
     // Set up event listeners for subpage links
     document.addEventListener('DOMContentLoaded', () => {
@@ -311,7 +319,7 @@
         link.addEventListener('click', (e) => {
           e.stopPropagation();
           const category = link.getAttribute('data-category');
-          toggleDropdown(category);
+          toggleDropdown(category, link);
         });
       });
     });
@@ -502,39 +510,60 @@
       return html;
     }
 
-    function toggleDropdown(category) {
+    function toggleDropdown(category, button) {
       const dropdown = document.getElementById(`dropdown-${category}`);
       const content = document.getElementById(`dropdown-${category}-content`);
 
       // Close other dropdowns
       if (activeDropdown && activeDropdown !== dropdown) {
         activeDropdown.classList.remove('active');
+        if (activeButton) {
+          activeButton.classList.remove('active');
+        }
       }
 
       // Toggle current dropdown
       if (dropdown.classList.contains('active')) {
         dropdown.classList.remove('active');
+        button.classList.remove('active');
         activeDropdown = null;
+        activeButton = null;
       } else {
         if (!content.innerHTML) {
           content.innerHTML = renderQuestContent(category);
         }
+
+        // Position dropdown under the button
+        const rect = button.getBoundingClientRect();
+        dropdown.style.top = (rect.bottom + window.scrollY + 10) + 'px';
+        dropdown.style.left = (rect.left + window.scrollX) + 'px';
+
         dropdown.classList.add('active');
+        button.classList.add('active');
         activeDropdown = dropdown;
+        activeButton = button;
       }
     }
 
     document.addEventListener('click', (e) => {
       if (activeDropdown && !e.target.closest('.quest-dropdown') && !e.target.closest('.subpage-link')) {
         activeDropdown.classList.remove('active');
+        if (activeButton) {
+          activeButton.classList.remove('active');
+        }
         activeDropdown = null;
+        activeButton = null;
       }
     });
 
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && activeDropdown) {
         activeDropdown.classList.remove('active');
+        if (activeButton) {
+          activeButton.classList.remove('active');
+        }
         activeDropdown = null;
+        activeButton = null;
       }
     });
   </script>
