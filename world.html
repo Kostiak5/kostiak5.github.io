@@ -21,57 +21,125 @@
       justify-content: center;
       align-items: center;
       text-transform: lowercase;
-      padding: 2rem;
     }
 
-    .header {
-      text-align: center;
-      margin-bottom: 2rem;
+    .image-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
     }
 
-    h1 {
-      font-size: 3rem;
+    .interactive-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .overlay-text {
+      position: fixed;
+      top: 5%;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 4rem;
       font-weight: 700;
       letter-spacing: -0.02em;
-      margin-bottom: 1rem;
+      color: black;
+      opacity: 0;
+      
+      pointer-events: none;
+      z-index: 10;
+      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     }
 
-    .back-link {
-      display: inline-block;
-      color: #888888;
-      text-decoration: none;
-      font-size: 0.9rem;
-      letter-spacing: 0.05em;
-      transition: color 0.2s ease;
-    }
-
-    .back-link:hover {
-      color: #ffffff;
-    }
-
-    .content {
-      max-width: 600px;
-      text-align: center;
-      line-height: 1.6;
-    }
-
-    p {
-      color: #aaaaaa;
-      margin-bottom: 1.5rem;
+    .lamp-button {
+      position: absolute;
+      width: 15px;
+      height: 20px;
+      border: none;
+      border-radius: 0;
+      background-color: greenyellow;
+      cursor: pointer;
+      transition: opacity 0.4s ease;
+      box-shadow: none;
+      transform: translate(-50%, -50%);
     }
   </style>
 </head>
 <body>
 
-  <div class="header">
-    <h1>world</h1>
-    <a href="index.html" class="back-link">← back to home</a>
+  <div class="image-container">
+    <img src="images/worldjpg.png" alt="world map" class="interactive-image" id="mainImage">
+
+    <!-- Interactive buttons positioned at pixel coordinates on image -->
+    <button class="lamp-button" data-text="explore" data-px="640" data-py="360" title="light up"></button>
+    <button class="lamp-button" data-text="diary" data-px="2030" data-py="850" title="light up"></button>
+
+    <!-- Text overlay -->
+    <div class="overlay-text" id="overlayText"></div>
   </div>
 
-  <div class="content">
-    <p>a placeholder page for the world section.</p>
-    <p>explore, discover, and connect with the world around you.</p>
-  </div>
+  <script>
+    const buttons = document.querySelectorAll('.lamp-button');
+    const mainImage = document.getElementById('mainImage');
+    const overlayText = document.getElementById('overlayText');
+
+    // The image is rendered with object-fit: cover, so it is scaled by a single
+    // factor and centre-cropped. Map a natural-image pixel to its on-screen spot
+    // using that same scale + crop offset, so buttons stay glued to the picture
+    // no matter what shape the window is.
+    function positionButtons() {
+      const natW = mainImage.naturalWidth;
+      const natH = mainImage.naturalHeight;
+      if (!natW || !natH) return; // image not decoded yet
+
+      const box = mainImage.getBoundingClientRect();
+      const scale = Math.max(box.width / natW, box.height / natH);
+      const offsetX = (box.width - natW * scale) / 2;
+      const offsetY = (box.height - natH * scale) / 2;
+
+      buttons.forEach(button => {
+        const px = parseFloat(button.getAttribute('data-px'));
+        const py = parseFloat(button.getAttribute('data-py'));
+
+        const x = offsetX + px * scale;
+        const y = offsetY + py * scale;
+
+        button.style.left = x + 'px';
+        button.style.top = y + 'px';
+
+        // Hide it when the crop pushes that pixel outside the visible frame
+        const visible = x >= 0 && x <= box.width && y >= 0 && y <= box.height;
+        button.style.display = visible ? '' : 'none';
+      });
+    }
+
+    // Reposition whenever the image is decoded or its rendered box changes
+    // (window resize, split-pane drag, zoom, orientation change).
+    if (mainImage.complete) positionButtons();
+    mainImage.addEventListener('load', positionButtons);
+    new ResizeObserver(positionButtons).observe(mainImage);
+
+    // Add hover and click handlers
+    buttons.forEach(button => {
+      button.addEventListener('mouseenter', function() {
+        const text = this.getAttribute('data-text');
+        overlayText.textContent = text;
+        overlayText.style.opacity = '1';
+      });
+
+      button.addEventListener('mouseleave', function() {
+        overlayText.style.opacity = '0';
+      });
+
+      button.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        const text = this.getAttribute('data-text');
+        alert(text + '...');
+      });
+    });
+  </script>
 
 </body>
 </html>

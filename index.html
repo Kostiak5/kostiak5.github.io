@@ -4,33 +4,36 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Your Name</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Exo+2:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="index_style.css">
 </head>
 <body>
 
-  <h1 class="name">constantin kolomiiets</h1>
+  <h1 class="name">Constantin Kolomiiets</h1>
   <div class="subpages">
-    <button class="subpage-link" data-category="compvis" style="color: lightcoral;">computer vision papers & research</button>
+    <button class="subpage-link" data-category="compvis">work & research experience</button>
     <div id="dropdown-compvis" class="quest-dropdown">
-      <h2 class="dropdown-title">computer vision</h2>
+      <h2 class="dropdown-title">Work &amp; Research Experience</h2>
       <div id="dropdown-compvis-content"></div>
     </div>
 
-    <button class="subpage-link" data-category="aidata" style="color: lightskyblue;">AI / data analysis projects</button>
+    <button class="subpage-link" data-category="aidata">Projects</button>
     <div id="dropdown-aidata" class="quest-dropdown">
-      <h2 class="dropdown-title">ai / data analysis</h2>
+      <h2 class="dropdown-title">Projects</h2>
       <div id="dropdown-aidata-content"></div>
     </div>
 
-    <button class="subpage-link" data-category="webdev" style="color: lightgreen;">webdev projects</button>
+    <button class="subpage-link" data-category="webdev">education & extracurriculars</button>
     <div id="dropdown-webdev" class="quest-dropdown">
-      <h2 class="dropdown-title">webdev projects</h2>
+      <h2 class="dropdown-title">Education &amp; Extracurriculars</h2>
       <div id="dropdown-webdev-content"></div>
     </div>
 
-    <button class="subpage-link" data-category="other" style="color: bisque;">personal</button>
+    <button class="subpage-link" data-category="other">Skills & Interests</button>
     <div id="dropdown-other" class="quest-dropdown">
-      <h2 class="dropdown-title">other projects</h2>
+      <h2 class="dropdown-title">Skills & Interests</h2>
       <div id="dropdown-other-content"></div>
     </div>
   </div>
@@ -40,9 +43,11 @@
     <a href="mailto:conskol5@gmail.com">gmail</a>
   </div>
 
-  <!-- Go Back Buttons -->
-  <div class="go-back go-back-top" id="goBackTop">go back</div>
-  <div class="go-back go-back-bottom" id="goBackBottom">go back</div>
+  <!-- Go Back Button -->
+  <div class="go-back-strip" id="goBackStrip">
+    <span class="go-back-arrow">&larr;</span>
+    <span class="go-back-text">Back</span>
+  </div>
 
   <!-- Social Icons (for personal page) -->
   <div class="social-icons" id="socialIcons">
@@ -61,9 +66,17 @@
     </a>
     <a href="world.html" class="social-icon world-icon" title="world">
       <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z" fill="currentColor" stroke="currentColor" stroke-width="0.5"/>
+        <rect x="5" y="10" width="14" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M8 10V7c0-2.21 1.79-4 4-4s4 1.79 4 4v3" fill="none" stroke="currentColor" stroke-width="1.5"/>
+        <circle cx="12" cy="15" r="1" fill="currentColor"/>
       </svg>
       <span class="world-text">world</span>
+    </a>
+    <a href="diary.html" class="social-icon" title="diary">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <rect x="4" y="4" width="16" height="16" rx="1" fill="none" stroke="currentColor" stroke-width="1.5"/>
+        <line x1="9" y1="4" x2="9" y2="20" stroke="currentColor" stroke-width="1.5"/>
+      </svg>
     </a>
   </div>
 
@@ -82,205 +95,248 @@
         });
       });
 
-      // Set up go back button listeners
-      const goBackTop = document.getElementById('goBackTop');
-      const goBackBottom = document.getElementById('goBackBottom');
-
-      goBackTop.addEventListener('click', closeActiveDropdown);
-      goBackBottom.addEventListener('click', closeActiveDropdown);
+      // Set up go back button listener
+      const goBackStrip = document.getElementById('goBackStrip');
+      goBackStrip.addEventListener('click', closeActiveDropdown);
     });
 
     const questData = {
-      compvis: {
-        sections: [
-          {
-            title: '> on-going',
-            type: 'ongoing',
-            items: [
-              { name: 'Computer Vision Model Optimization', badge: '[75% complete]' },
-              { name: 'Portfolio Site Redesign', badge: '[in progress]' },
-              { name: 'Bachelors in Computer Science', subtext: 'CTU FEE', badge: '[2/3 complete]' }
-            ]
-          },
-          {
-            title: '> upcoming quests',
-            type: 'upcoming',
-            items: [
-              { name: 'Deploy PyTorch Web Demo' },
-              { name: 'Write Data Analysis Article' },
-              { name: 'Set up Custom Domain DNS' }
-            ]
-          },
-          {
-            title: '> done',
-            type: 'done',
-            items: [
-              {
-                name: 'SAM-pose2seg paper',
-                subtext: 'First author',
-                badge: '[presented on cvww 2026]',
-                buttons: [
-                  { text: '[ctu news]', url: 'https://fel.cvut.cz/en/what-s-on/news/84000-a-student-of-the-faculty-of-electrical-engineering-at-ctu-succeeded-at-the-international-workshop-cvww-2026-for-his-work-in-the-field-of-computer-vision-he-received-the-best-paper-award', isCtu: true },
-                  { text: '[arxiv]', url: 'https://arxiv.org/abs/2601.08982', isCtu: false }
-                ]
-              },
-              {
-                name: 'BBoxMaskPose v2 paper',
-                subtext: 'Co-author',
-                badge: '[submitted to ijcv 2026]',
-                buttons: [
-                  { text: '[arxiv]', url: 'https://arxiv.org/abs/2601.08982', isCtu: false }
-                ]
+      compvis: [
+        {
+          name: 'Computer Vision Research Intern',
+          subtext: 'CTU FEE, Department of Computer Vision, VRG (Visual Recognition Group) · July 2024 - Present',
+          description: 'Conduct research on human pose and segmentation. Apply skills in machine learning, data analysis, and programming in Python.',
+          subparagraphs: [
+            {
+              name: 'SAM-pose2seg',
+              subtext: 'First author · CVWW 2026 Best Paper Award',
+              description: 'Research paper on human pose and segmentation, presented at CVWW 2026.',
+              links: [
+                { text: 'news article', url: 'https://fel.cvut.cz/en/what-s-on/news/84000-a-student-of-the-faculty-of-electrical-engineering-at-ctu-succeeded-at-the-international-workshop-cvww-2026-for-his-work-in-the-field-of-computer-vision-he-received-the-best-paper-award', isCtu: true },
+                { text: 'GitHub', url: 'https://github.com/Kostiak5/SAM-Pose2Seg.git', isCtu: false },
+                { text: 'arXiv', url: 'https://arxiv.org/abs/2601.08982', isCtu: false }
+              ],
+              newsCard: {
+                image: 'http://fel.cvut.cz/aktualne/novinky/2026/04/best-paper-award/26575/image-thumb__26575__OpenGraphImage/01_kolomiiets_constantin_weblong1280px_fotoneugebauerpetrfelcvut_2026.jpg',
+                source: 'CTU FEE News · April 22, 2026',
+                title: 'A Student of the Faculty of Electrical Engineering at CTU Succeeded at the International Workshop CVWW 2026. For his Work in the Field of Computer Vision, he Received the Best Paper Award.',
+                url: 'https://fel.cvut.cz/en/what-s-on/news/84000-a-student-of-the-faculty-of-electrical-engineering-at-ctu-succeeded-at-the-international-workshop-cvww-2026-for-his-work-in-the-field-of-computer-vision-he-received-the-best-paper-award'
               }
-            ]
-          }
-        ]
-      },
-      aidata: {
-        sections: [
-          {
-            title: '> on-going',
-            type: 'ongoing',
-            items: [
-              { name: 'Machine Learning Model Development', badge: '[60% complete]' },
-              { name: 'Data Pipeline Optimization', badge: '[in progress]' }
-            ]
-          },
-          {
-            title: '> upcoming quests',
-            type: 'upcoming',
-            items: [
-              { name: 'Publish Analysis Article' },
-              { name: 'Build Real-time Dashboard' }
-            ]
-          },
-          {
-            title: '> done',
-            type: 'done',
-            items: [
-              {
-                name: 'Time Series Forecasting Project',
-                badge: '[completed]',
-                buttons: [
-                  { text: '[github]', url: 'https://github.com/Kostiak5', isCtu: false }
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      webdev: {
-        sections: [
-          {
-            title: '> on-going',
-            type: 'ongoing',
-            items: [
-              { name: 'Portfolio Site Redesign', badge: '[in progress]' },
-              { name: 'Web App Development', badge: '[40% complete]' }
-            ]
-          },
-          {
-            title: '> upcoming quests',
-            type: 'upcoming',
-            items: [
-              { name: 'Deploy to Production' },
-              { name: 'Add Mobile Responsiveness' }
-            ]
-          },
-          {
-            title: '> done',
-            type: 'done',
-            items: [
-              {
-                name: 'Personal Website Launch',
-                badge: '[launched]',
-                buttons: [
-                  { text: '[github]', url: 'https://github.com/Kostiak5', isCtu: false }
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      other: {
-        sections: [
-          {
-            title: '> on-going',
-            type: 'ongoing',
-            items: [
-              { name: 'Open Source Contributions', badge: '[active]' },
-              { name: 'Learning New Technologies', badge: '[ongoing]' }
-            ]
-          },
-          {
-            title: '> upcoming quests',
-            type: 'upcoming',
-            items: [
-              { name: 'Start Blog Series' },
-              { name: 'Create Tutorial Videos' }
-            ]
-          },
-          {
-            title: '> done',
-            type: 'done',
-            items: [
-              {
-                name: 'CTF Competition Participation',
-                badge: '[completed]',
-                buttons: [
-                  { text: '[details]', url: '#', isCtu: false }
-                ]
-              }
-            ]
-          }
-        ]
-      }
+            },
+            {
+              name: 'BBoxMaskPose v2',
+              subtext: 'Co-author · Submitted to IJCV 2026',
+              description: 'Follow-up work extending BBoxMaskPose, submitted to the International Journal of Computer Vision.',
+              links: [
+                { text: 'GitHub', url: 'https://github.com/MiraPurkrabek/BBoxMaskPose', isCtu: false },
+                { text: 'arXiv', url: 'https://arxiv.org/abs/2601.08982', isCtu: false }
+              ]
+            }
+          ]
+        },
+        {
+          name: 'AI Engineer',
+          subtext: 'SURG Solutions, July 2024 - Present',
+          description: 'Training and applying various AI models for company deployment.'
+        },
+        {
+          name: 'Data Analyst',
+          subtext: 'muunbase s.r.o. · October 2024 - June 2025',
+          description: 'Worked on a traffic signs 3D mapping project for the Prague City Hall. Responsible for data processing and analysis using Python.'
+        }
+      ],
+      aidata: [
+        {
+          name: 'SAM-pose2seg',
+          subtext: 'First author · CVWW 2026 Best Paper Award',
+          description: 'Research paper on human pose and segmentation, presented at CVWW 2026.',
+          links: [
+            { text: 'news article', url: 'https://fel.cvut.cz/en/what-s-on/news/84000-a-student-of-the-faculty-of-electrical-engineering-at-ctu-succeeded-at-the-international-workshop-cvww-2026-for-his-work-in-the-field-of-computer-vision-he-received-the-best-paper-award', isCtu: true },
+            { text: 'GitHub', url: 'https://github.com/Kostiak5/SAM-Pose2Seg.git', isCtu: false },
+            { text: 'arXiv', url: 'https://arxiv.org/abs/2601.08982', isCtu: false }
+          ]
+        },
+        {
+          name: 'BBoxMaskPose v2',
+          subtext: 'Co-author · Submitted to IJCV 2026',
+          description: 'Follow-up work extending BBoxMaskPose, submitted to the International Journal of Computer Vision.',
+          links: [
+            { text: 'GitHub', url: 'https://github.com/MiraPurkrabek/BBoxMaskPose', isCtu: false },
+            { text: 'arXiv', url: 'https://arxiv.org/abs/2601.08982', isCtu: false }
+          ]
+        },
+        {
+          name: 'Chat',
+          subtext: 'Java',
+          description: 'A peer-to-peer network chat application enabling two or more users to interact over a network without a server, with client discovery, connection, message synchronization, public/private messaging, and a tic-tac-toe game mode.',
+          links: [ { text: 'GitHub', url: 'https://github.com/Kalash004/Chat', isCtu: false } ]
+        },
+        {
+          name: 'Segment Anything 3 for Human Recognition',
+          subtext: 'Python',
+          description: 'Fork focused on human recognition in occluded scenarios; fine-tuning and evaluation scripts for COCO-like annotations.',
+          links: [ { text: 'GitHub', url: 'https://github.com/Kostiak5/SAM3HumanRecognition', isCtu: false } ]
+        },
+        {
+          name: 'Road Sign Coordinate Transformation',
+          subtext: 'Python',
+          description: 'Transforms local road sign coordinates from photographs into a global system for cross-image matching.',
+          links: [ { text: 'GitHub', url: 'https://github.com/Kostiak5/pCoordsTransformation', isCtu: false } ]
+        },
+        {
+          name: 'Linear Algebra Visual Calculator',
+          subtext: 'Python',
+          description: 'Linear algebra utilities and experiments applied to computer vision problems.',
+          links: [ { text: 'GitHub', url: 'https://github.com/Kostiak5/pLinAlgVC', isCtu: false } ]
+        },
+        {
+          name: 'Password Database',
+          subtext: 'JavaScript',
+          description: 'A web application designed for storing passwords and user account information.',
+          links: [ { text: 'GitHub', url: 'https://github.com/Kostiak5/pDatabasePasswords', isCtu: false } ]
+        },
+        {
+          name: 'Shoe Store Transaction Database',
+          subtext: 'JavaScript',
+          description: 'A database application for tracking and managing transactions of a shoe store.',
+          links: [ { text: 'GitHub', url: 'https://github.com/Kostiak5/pDatabaseTransactions', isCtu: false } ]
+        },
+        {
+          name: 'Spam Filter',
+          subtext: 'Python',
+          description: 'A spam-filtering project exploring text classification techniques.',
+          links: [ { text: 'GitHub', url: 'https://github.com/Kostiak5/SpamFilter', isCtu: false } ]
+        },
+        {
+          name: 'Matrix Calculator',
+          subtext: 'C#',
+          description: 'A calculator application for performing matrix operations.',
+          links: [ { text: 'GitHub', url: 'https://github.com/Kostiak5/pMatrixCalculator', isCtu: false } ]
+        },
+        {
+          name: 'Windows Forms Paint',
+          subtext: 'C#',
+          description: 'A Windows Forms paint application built as a desktop programming exercise.',
+          links: [ { text: 'GitHub', url: 'https://github.com/Kostiak5/pWinFormsPaint', isCtu: false } ]
+        },
+        {
+          name: 'Console Game on Politics',
+          subtext: 'C#',
+          description: 'A console-based game project.',
+          links: [ { text: 'GitHub', url: 'https://github.com/Kostiak5/pConsoleGame', isCtu: false } ]
+        }
+      ],
+      webdev: [
+        {
+          name: 'ČVUT FEL (CTU FEE)',
+          subtext: 'BSc in Computer Science, AI specialization · Since September 2024',
+          description: 'Pursuing a degree in Computer Science with a specialization in Artificial Intelligence. <br>GPA: 1.13 (scale 1-4, 1 = best).'
+        },
+        {
+          name: 'prg.ai Minor Programme',
+          subtext: 'Since April 2025',
+          description: 'Accepted into a selective inter-university programme connecting the best AI-focused research and companies in Prague. Machine Learning course completed.'
+        },
+        {
+          name: 'Aarhus Summer University',
+          subtext: 'July - August 2026',
+          description: 'Completed the Business Intelligence from Web Data Analytics and Data Mining course, using R and AI.'
+        },
+        {
+          name: 'Gymnázium Voděradská',
+          subtext: 'September 2016 - May 2024',
+          description: 'Completed secondary education.'
+        },
+        {
+          name: 'Math Tutoring',
+          subtext: 'Extracurricular',
+          description: 'Tutored more than 20 students from primary and secondary schools in mathematics.'
+        }
+      ],
+      other: [
+        {
+          name: 'Languages',
+          description: 'Czech, Ukrainian, Russian: native speaker level.<br>English: Level C2 (Cambridge Advanced English, Grade A).<br>German: Level C1 (TELC C1 Hochschule).'
+        },
+        {
+          name: 'Skills',
+          description: 'Model training/fine-tuning, data analysis with Python (NumPy, PyTorch, Matplotlib, Scikit-learn). <br> Prompt engineering, agentic AI and LLM usage (Claude Code, Codex). <br>Full-stack development with HTML, CSS, JS/React, MongoDB. <br>Algorithms in C, C++, Python. <br>Proficient with Microsoft & Google tools.'
+        },
+        {
+          name: 'Interests',
+          description: 'Language patterns and linguistics, data visualization, urban planning, geopolitics.'
+        }
+      ]
     };
 
     function renderQuestContent(category) {
-      const data = questData[category];
-      let html = '';
+      const items = questData[category];
+      let html = '<div class="quest-list">';
 
-      data.sections.forEach((section) => {
-        html += `<div class="quest-section">`;
-        html += `<h3 class="quest-section-title ${section.type}">${section.title}</h3>`;
-        html += `<div class="quest-list">`;
+      items.forEach((item) => {
+        let linksHTML = '';
+        if (item.links && item.links.length > 0) {
+          linksHTML = '<div class="quest-links">';
+          item.links.forEach(link => {
+            const linkClass = link.isCtu ? 'quest-action-btn ctu' : 'quest-action-btn';
+            linksHTML += `<a href="${link.url}" target="_blank" class="${linkClass}">${link.text}</a>`;
+          });
+          linksHTML += '</div>';
+        }
 
-        section.items.forEach((item) => {
-          const isDone = section.type === 'done';
-          let buttonsHTML = '';
+        html += `<div class="quest-item">`;
+        html += `<div class="quest-content">`;
+        html += `<span class="quest-name">${item.name}</span>`;
+        if (item.subtext) html += `<span class="quest-sub-text">${item.subtext}</span>`;
+        if (item.description) html += `<p class="quest-description">${item.description}</p>`;
+        html += linksHTML;
 
-          if (item.buttons && item.buttons.length > 0) {
-            buttonsHTML = '<div class="quest-hover-buttons">';
-            item.buttons.forEach(btn => {
-              const btnClass = btn.isCtu ? 'quest-action-btn ctu' : 'quest-action-btn';
-              buttonsHTML += `<a href="${btn.url}" target="_blank" class="${btnClass}">${btn.text}</a>`;
-            });
-            buttonsHTML += '</div>';
-          }
+        if (item.subparagraphs && item.subparagraphs.length > 0) {
+          html += '<div class="quest-subparagraphs">';
+          item.subparagraphs.forEach((sub) => {
+            let subLinksHTML = '';
+            if (sub.links && sub.links.length > 0) {
+              subLinksHTML = '<div class="quest-links">';
+              sub.links.forEach(link => {
+                const linkClass = link.isCtu ? 'quest-action-btn ctu' : 'quest-action-btn';
+                subLinksHTML += `<a href="${link.url}" target="_blank" class="${linkClass}">${link.text}</a>`;
+              });
+              subLinksHTML += '</div>';
+            }
 
-          html += `<div class="quest-item ${isDone ? 'quest-done-item' : ''}">`;
-          html += buttonsHTML;
-          html += `<div class="quest-content">`;
-          html += `<span>${item.name}</span>`;
-          if (item.subtext) html += `<span class="quest-sub-text">${item.subtext}</span>`;
-          if (item.buttons) html += `<span class="quest-hover-indicator">💬 hover</span>`;
-          html += `</div>`;
-          if (item.badge) html += `<span class="quest-badge ${isDone ? 'completed' : 'ongoing'}">${item.badge}</span>`;
-          html += `</div>`;
-        });
+            html += `<div class="quest-subitem">`;
+            html += `<span class="quest-subname">${sub.name}</span>`;
+            if (sub.subtext) html += `<span class="quest-sub-text">${sub.subtext}</span>`;
+            if (sub.description) html += `<p class="quest-description">${sub.description}</p>`;
+            html += subLinksHTML;
 
-        html += `</div></div>`;
+            if (sub.newsCard) {
+              html += `<a href="${sub.newsCard.url}" target="_blank" class="news-card">`;
+              html += `<div class="news-card-image" style="background-image: url('${sub.newsCard.image}')"></div>`;
+              html += `<div class="news-card-body">`;
+              html += `<span class="news-card-source">${sub.newsCard.source}</span>`;
+              html += `<span class="news-card-title">${sub.newsCard.title}</span>`;
+              html += `</div>`;
+              html += `</a>`;
+            }
+
+            html += `</div>`;
+          });
+          html += '</div>';
+        }
+
+        html += `</div>`;
+        html += `</div>`;
       });
 
+      html += '</div>';
       return html;
     }
 
     function toggleDropdown(category, button) {
       const dropdown = document.getElementById(`dropdown-${category}`);
       const content = document.getElementById(`dropdown-${category}-content`);
-      const goBackTop = document.getElementById('goBackTop');
-      const goBackBottom = document.getElementById('goBackBottom');
+      const goBackStrip = document.getElementById('goBackStrip');
       const socialIcons = document.getElementById('socialIcons');
 
       // Close other dropdowns
@@ -289,8 +345,7 @@
         if (activeButton) {
           activeButton.classList.remove('active');
         }
-        goBackTop.classList.remove('active');
-        goBackBottom.classList.remove('active');
+        goBackStrip.classList.remove('active');
         socialIcons.classList.remove('active');
       }
 
@@ -298,8 +353,7 @@
       if (dropdown.classList.contains('active')) {
         dropdown.classList.remove('active');
         button.classList.remove('active');
-        goBackTop.classList.remove('active');
-        goBackBottom.classList.remove('active');
+        goBackStrip.classList.remove('active');
         socialIcons.classList.remove('active');
         activeDropdown = null;
         activeButton = null;
@@ -310,15 +364,12 @@
 
         dropdown.classList.add('active');
         button.classList.add('active');
+        goBackStrip.classList.add('active');
 
-        // Show social icons for "other" category, GO BACK button for others
+        // Show social icons for "other" category
         if (category === 'other') {
-          goBackTop.classList.add('active');
           socialIcons.classList.add('active');
-          goBackBottom.classList.remove('active');
         } else {
-          goBackTop.classList.add('active');
-          goBackBottom.classList.add('active');
           socialIcons.classList.remove('active');
         }
 
@@ -333,11 +384,9 @@
         if (activeButton) {
           activeButton.classList.remove('active');
         }
-        const goBackTop = document.getElementById('goBackTop');
-        const goBackBottom = document.getElementById('goBackBottom');
+        const goBackStrip = document.getElementById('goBackStrip');
         const socialIcons = document.getElementById('socialIcons');
-        goBackTop.classList.remove('active');
-        goBackBottom.classList.remove('active');
+        goBackStrip.classList.remove('active');
         socialIcons.classList.remove('active');
         activeDropdown = null;
         activeButton = null;
@@ -345,7 +394,7 @@
     }
 
     document.addEventListener('click', (e) => {
-      if (activeDropdown && !e.target.closest('.quest-dropdown') && !e.target.closest('.subpage-link') && !e.target.closest('.go-back') && !e.target.closest('.social-icons')) {
+      if (activeDropdown && !e.target.closest('.quest-dropdown') && !e.target.closest('.subpage-link') && !e.target.closest('.go-back-strip') && !e.target.closest('.social-icons')) {
         closeActiveDropdown();
       }
     });
