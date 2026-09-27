@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Exo+2:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="index_style.css">
+  <link rel="stylesheet" href="index_style.css?v=2">
 </head>
 <body>
 
@@ -15,24 +15,28 @@
   <div class="subpages">
     <button class="subpage-link" data-category="compvis">work & research experience</button>
     <div id="dropdown-compvis" class="quest-dropdown">
+      <button class="go-back-corner" title="back">&larr;</button>
       <h2 class="dropdown-title">Work &amp; Research Experience</h2>
       <div id="dropdown-compvis-content"></div>
     </div>
 
     <button class="subpage-link" data-category="aidata">Projects</button>
     <div id="dropdown-aidata" class="quest-dropdown">
+      <button class="go-back-corner" title="back">&larr;</button>
       <h2 class="dropdown-title">Projects</h2>
       <div id="dropdown-aidata-content"></div>
     </div>
 
     <button class="subpage-link" data-category="webdev">education & extracurriculars</button>
     <div id="dropdown-webdev" class="quest-dropdown">
+      <button class="go-back-corner" title="back">&larr;</button>
       <h2 class="dropdown-title">Education &amp; Extracurriculars</h2>
       <div id="dropdown-webdev-content"></div>
     </div>
 
     <button class="subpage-link" data-category="other">Skills & Interests</button>
     <div id="dropdown-other" class="quest-dropdown">
+      <button class="go-back-corner" title="back">&larr;</button>
       <h2 class="dropdown-title">Skills & Interests</h2>
       <div id="dropdown-other-content"></div>
     </div>
@@ -43,13 +47,8 @@
     <a href="mailto:conskol5@gmail.com">gmail</a>
   </div>
 
-  <!-- Go Back Button -->
-  <div class="go-back-strip" id="goBackStrip">
-    <span class="go-back-arrow">&larr;</span>
-    <span class="go-back-text">Back</span>
-  </div>
-
-  <!-- Social Icons (for personal page) -->
+  <!--
+  Social Icons (for Skills & Interests page) - hidden for now
   <div class="social-icons" id="socialIcons">
     <a href="https://spotify.com" target="_blank" class="social-icon" title="spotify">
       <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -79,6 +78,7 @@
       </svg>
     </a>
   </div>
+  -->
 
   <script>
     let activeDropdown = null;
@@ -95,9 +95,14 @@
         });
       });
 
-      // Set up go back button listener
-      const goBackStrip = document.getElementById('goBackStrip');
-      goBackStrip.addEventListener('click', closeActiveDropdown);
+      // Set up go back button listeners
+      const goBackButtons = document.querySelectorAll('.go-back-corner');
+      goBackButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          closeActiveDropdown();
+        });
+      });
     });
 
     const questData = {
@@ -147,7 +152,7 @@
       ],
       aidata: [
         {
-          name: 'SAM-pose2seg',
+          name: 'SAM-pose2seg <img src="images/sampose2seg.png" class="title-gif" alt="">',
           subtext: 'First author · CVWW 2026 Best Paper Award',
           description: 'Research paper on human pose and segmentation, presented at CVWW 2026.',
           links: [
@@ -157,7 +162,7 @@
           ]
         },
         {
-          name: 'BBoxMaskPose v2',
+          name: 'BBoxMaskPose v2 <img src="images/anim2.gif" class="title-gif" alt="">',
           subtext: 'Co-author · Submitted to IJCV 2026',
           description: 'Follow-up work extending BBoxMaskPose, submitted to the International Journal of Computer Vision.',
           links: [
@@ -336,8 +341,6 @@
     function toggleDropdown(category, button) {
       const dropdown = document.getElementById(`dropdown-${category}`);
       const content = document.getElementById(`dropdown-${category}-content`);
-      const goBackStrip = document.getElementById('goBackStrip');
-      const socialIcons = document.getElementById('socialIcons');
 
       // Close other dropdowns
       if (activeDropdown && activeDropdown !== dropdown) {
@@ -345,16 +348,12 @@
         if (activeButton) {
           activeButton.classList.remove('active');
         }
-        goBackStrip.classList.remove('active');
-        socialIcons.classList.remove('active');
       }
 
       // Toggle current dropdown
       if (dropdown.classList.contains('active')) {
         dropdown.classList.remove('active');
         button.classList.remove('active');
-        goBackStrip.classList.remove('active');
-        socialIcons.classList.remove('active');
         activeDropdown = null;
         activeButton = null;
       } else {
@@ -364,14 +363,6 @@
 
         dropdown.classList.add('active');
         button.classList.add('active');
-        goBackStrip.classList.add('active');
-
-        // Show social icons for "other" category
-        if (category === 'other') {
-          socialIcons.classList.add('active');
-        } else {
-          socialIcons.classList.remove('active');
-        }
 
         activeDropdown = dropdown;
         activeButton = button;
@@ -384,17 +375,13 @@
         if (activeButton) {
           activeButton.classList.remove('active');
         }
-        const goBackStrip = document.getElementById('goBackStrip');
-        const socialIcons = document.getElementById('socialIcons');
-        goBackStrip.classList.remove('active');
-        socialIcons.classList.remove('active');
         activeDropdown = null;
         activeButton = null;
       }
     }
 
     document.addEventListener('click', (e) => {
-      if (activeDropdown && !e.target.closest('.quest-dropdown') && !e.target.closest('.subpage-link') && !e.target.closest('.go-back-strip') && !e.target.closest('.social-icons')) {
+      if (activeDropdown && !e.target.closest('.quest-dropdown') && !e.target.closest('.subpage-link')) {
         closeActiveDropdown();
       }
     });

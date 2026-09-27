@@ -156,6 +156,31 @@ body {
     display: block;
 }
 
+.go-back-corner {
+    position: absolute;
+    top: 1.2rem;
+    left: 1.2rem;
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 1px solid var(--accent);
+    color: var(--accent-dark);
+    font-size: 1.2rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 5;
+    transition: all 0.2s ease;
+}
+
+.go-back-corner:hover {
+    background: var(--accent);
+    color: #ffffff;
+}
+
 .dropdown-title {
     font-family: 'Orbitron', sans-serif;
     font-size: 1.3rem;
@@ -249,6 +274,14 @@ body {
     margin-bottom: 0.2rem;
 }
 
+.title-gif {
+    height: 10em;
+    width: auto;
+    vertical-align: middle;
+    margin-left: 0.8rem;
+    border-radius: 6px;
+}
+
 .quest-subitem .quest-sub-text,
 .quest-subitem .quest-description {
     padding-left: 0.6rem;
@@ -334,66 +367,7 @@ body {
     background-color: var(--accent-dark);
 }
 
-/* Go Back Strip Styles */
-.go-back-strip {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    width: 4rem;
-    background: #ffffff;
-    border-right: 1px solid var(--accent);
-    cursor: pointer;
-    user-select: none;
-    z-index: 101;
-    transition: width 0.2s ease, background-color 0.2s ease;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    overflow: hidden;
-}
-
-.go-back-strip.active {
-    display: flex;
-}
-
-.go-back-strip:hover {
-    width: 9rem;
-    background-color: var(--accent);
-}
-
-.go-back-arrow {
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: var(--accent-dark);
-    transition: color 0.2s ease;
-    flex-shrink: 0;
-}
-
-.go-back-strip:hover .go-back-arrow {
-    color: #ffffff;
-}
-
-.go-back-text {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 0.85rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: #ffffff;
-    opacity: 0;
-    max-width: 0;
-    white-space: nowrap;
-    transition: opacity 0.2s ease;
-}
-
-.go-back-strip:hover .go-back-text {
-    opacity: 1;
-    max-width: none;
-}
-
-/* Social Icons Styles */
+/* Social Icons Styles - currently unused, markup commented out in index.html
 .social-icons {
     display: none;
     position: fixed;
@@ -452,3 +426,4 @@ body {
 .social-icon:hover .world-text {
     color: var(--accent-dark);
 }
+*/
